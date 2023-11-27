@@ -60,10 +60,10 @@ struct Archivo{
   char nombre_archivo[256];
   long tamano;
   long ultima_modificacion;
-  int presente_en_directorio; // 1 si está presente, 0 si está ausente solo en el lado del cliente
+  int presente_en_directorio;
 };
 
-// DECLARACIÓN DE FUNCIONES.
+// DEFINICIÓN DE FUNCIONES.
 
 void generar_registro(const char *ruta_directorio, const char *nombre_archivo){
 
@@ -289,7 +289,7 @@ void borrar_archivos_de_directorio(const char *ruta_directorio, const char *regi
   fclose(archivo);
 }
 
-bool archivoEnDirectorio(const char *ruta_directorio, const char *nombre_archivo){
+bool archivo_en_directorio(const char *ruta_directorio, const char *nombre_archivo){
 
   /* Esta función verifica si un archivo existe dentro de un directorio */
 
@@ -801,7 +801,7 @@ int main(int argc, char *argv[]){
 
     printf("Sincronizando directorios...\n");
 
-    if(!archivoEnDirectorio(ruta_directorio_local, "registro.bin")){
+    if(!archivo_en_directorio(ruta_directorio_local, "registro.bin")){
       sincronizar_crear_actualizar(socket_remoto, ruta_directorio_local, 1);
       generar_registro(ruta_directorio_local, "registro.bin");
     }else{
@@ -865,7 +865,7 @@ int main(int argc, char *argv[]){
 
     printf("Sincronizando directorios...\n");
 
-    if(!archivoEnDirectorio(ruta_directorio_local, "registro.bin")){
+    if(!archivo_en_directorio(ruta_directorio_local, "registro.bin")){
       sincronizar_crear_actualizar(socket_local, ruta_directorio_local, 1);
       generar_registro(ruta_directorio_local, "registro.bin");
     }else{
